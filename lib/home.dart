@@ -112,8 +112,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     callback: () {
                       setState(() {
                         currentOperation = 'division';
-                        leftOperand = double.parse(displayValue);
-                        displayValue = '';
+                        displayValue = displayValue.replaceAll(',', '');
+
+                        if (leftOperand == 0) {
+                          leftOperand = double.parse(displayValue);
+                          displayValue = '';
+                        } else {
+                          rightOperand = double.parse(displayValue);
+                          leftOperand = leftOperand / rightOperand;
+                          displayValue = leftOperand.toString();
+                        }
                       });
                     },
                   ),
@@ -155,8 +163,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     callback: () {
                       setState(() {
                         currentOperation = 'multiplication';
-                        leftOperand = double.parse(displayValue);
-                        displayValue = '';
+                        displayValue = displayValue.replaceAll(',', '');
+
+                        if (leftOperand == 0) {
+                          leftOperand = double.parse(displayValue);
+                          displayValue = '';
+                        } else {
+                          rightOperand = double.parse(displayValue);
+                          leftOperand = leftOperand * rightOperand;
+                          displayValue = leftOperand.toString();
+                        }
                       });
                     },
                   ),
@@ -196,11 +212,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     character: '-',
                     fColor: Color.fromRGBO(221, 156, 58, 0.918),
                     callback: () {
-                      setState(() {
-                        currentOperation = 'subtraction';
-                        leftOperand = double.parse(displayValue);
-                        displayValue = '';
-                      });
+                      setState(
+                        () {
+                          currentOperation = 'subtraction';
+                          displayValue = displayValue.replaceAll(',', '');
+
+                          if (leftOperand == 0) {
+                            leftOperand = double.parse(displayValue);
+                            displayValue = '';
+                          } else {
+                            rightOperand = double.parse(displayValue);
+                            leftOperand = leftOperand - rightOperand;
+                            displayValue = leftOperand.toString();
+                          }
+                        },
+                      );
                     },
                   ),
                 ],
